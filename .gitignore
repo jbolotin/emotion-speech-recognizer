@@ -8,11 +8,12 @@ __pycache__/
 
 # LDC files
 *.wav
+*.csv
 
 # Store
 .DS_Store
 
-opensmile-2.3.0
+opensmile-2.2rc1
 
 # Distribution / packaging
 .Python

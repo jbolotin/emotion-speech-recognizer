@@ -1,8 +1,6 @@
-for dir in ./train/*
+#! /bin/sh
+
+for f in train/*/*.wav
 do
-		dir=${dir%*/}
-		for f in $dir/*
-		do
-			SMILExtract -C opensmile-2.3.0/config/ComParE_2016.conf -I "$f" -O outputfiles/ComParE_2016.conf.arff -instname "$f"
-		done
+	./SMILExtract -C openSMILE-2.2rc1/config/MFCC12_E_D_A.conf -I "$f" -outputcsv "${f%.*}".csv
 done

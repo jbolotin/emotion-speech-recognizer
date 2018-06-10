@@ -9,6 +9,7 @@ __pycache__/
 # LDC files
 *.wav
 *.csv
+*.arff
 
 # Store
 .DS_Store

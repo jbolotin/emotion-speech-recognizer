@@ -3,3 +3,4 @@ Using LDC Emotional Speech and Prosody dataset, a classifier to identify emotion
 - Due to Linguistic Data Consortium data usage restrictions, no data is uploaded to this repository
 - openSMILE used for audio feature extraction
 - pytorch used for deep learning
+- sklearn used for logistic regression

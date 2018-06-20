@@ -123,7 +123,7 @@ def main():
     test_loader = DataLoader(MyDataset(testX, testY), batch_size=32, shuffle=True)
     time_steps = 2
     batch_size = 590 # this is # files you're loading
-    input_size = 13 # this is # of features extracted
+    input_size = 12 # this is # of features extracted
     nclasses = 5
 
     # defines loss function
@@ -134,11 +134,11 @@ def main():
 
     while True:
         print best, best_lr, best_hidden
-        learning_rate = random.uniform(0.18, 0.23)
+        learning_rate = random.uniform(0.01, 0.3)
 
 
 
-        hidden_size = random.randint(90, 110)
+        hidden_size = random.randint(70, 110)
         # set up model
         model = RNN(input_size, hidden_size, 1, nclasses)
         # defines optimization function (this is using stochastic gradient descent)
@@ -152,8 +152,6 @@ def main():
 
 def train(time_steps, batch_size, input_size, hidden_size, nclasses, model, optimizer, criterion, train_loader, test_loader, trainX, trainY, testX, testY):
     print("Training")
-    best = 0
-    iteration = 0
     for epoch in range(40):
         total_loss = 0
         correct = 0
@@ -181,25 +179,24 @@ def train(time_steps, batch_size, input_size, hidden_size, nclasses, model, opti
         correct /= float(len(trainX))
         print("Epoch #%d, Loss: %f, Accuracy: %f" % (epoch, total_loss, correct))
 
-        model.eval()
-        # Test model
-        with torch.no_grad():
-            correct = 0
-            total = 0
-            for batch_idx, (data, target) in enumerate(test_loader):
-        #         x = torch.tensor(testX[i], dtype=torch.float).unsqueeze(0)
-        #         y = torch.tensor(testY[i]).unsqueeze(0)
+    model.eval()
+    # Test model
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for batch_idx, (data, target) in enumerate(test_loader):
+    #         x = torch.tensor(testX[i], dtype=torch.float).unsqueeze(0)
+    #         y = torch.tensor(testY[i]).unsqueeze(0)
 
-                outputs = model(data)
-                _, predicted = torch.max(outputs.data, 1)
-                correct += (predicted == target).sum().item()
-                total += len(target)
+            outputs = model(data)
+            _, predicted = torch.max(outputs.data, 1)
+            correct += (predicted == target).sum().item()
+            total += len(target)
 
-            print('Test Accuracy of the model: {} %'.format(100 * correct / total))
-            if 100 * correct / total > best:
-                best = 100 * correct / total
-                iteration = epoch
-    return best, iteration
+        print('Test Accuracy of the model: {} %'.format(100 * correct / total))
+        # if 100 * correct / total > best:
+        #     best = 100 * correct / total
+        #     iteration = epoch
 
 
 main()
